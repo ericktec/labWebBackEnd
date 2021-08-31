@@ -1,6 +1,9 @@
+const db = require("../../Services/db");
+
 const controller = {
-  test: (req, res) => {
-    res.json({ test: "test" });
+  test: async (req, res) => {
+    const rows = await db.query("SELECT CURRENT_TIMESTAMP;");
+    const response = res.json(rows[0]);
   }
 }
 
