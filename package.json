@@ -1,0 +1,22 @@
+{
+  "name": "labbackend",
+  "version": "1.0.0",
+  "description": "Server for a raspberry pi for the class of lab web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericktec/labWebBackEnd.git"
+  },
+  "author": "Erick David Mendoza Velasco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericktec/labWebBackEnd/issues"
+  },
+  "homepage": "https://github.com/ericktec/labWebBackEnd#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

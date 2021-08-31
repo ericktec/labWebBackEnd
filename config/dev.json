@@ -1,0 +1,13 @@
+{
+  "dev": {
+    "name": "Lab web",
+    "port": 3000,
+    "mode": "development",
+    "protocol": "http",
+    "serverUrl": "127.0.0.1",
+    "serverUrlWebUrlLink": "localhost:4200/",
+    "database": {
+      "name": ""
+    }
+  }
+}
