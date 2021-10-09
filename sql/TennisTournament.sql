@@ -5,7 +5,7 @@
 -- Table: Admins
 CREATE TABLE Admins (
     id integer NOT NULL AUTO_INCREMENT,
-    email varchar(100) NULL,
+    email varchar(100) NULL UNIQUE,
     name varchar(100) NULL,
     password varchar(100) NULL,
     CONSTRAINT Admins_pk PRIMARY KEY (id)

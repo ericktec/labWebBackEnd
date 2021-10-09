@@ -24,12 +24,13 @@ const controller = {
   },
 
   logIn: async (req, res) => {
-    const { email, password } = req.body;
-    const query = `SELECT password from admins where email = ?`;
-    const [user] = await db.query(query, [email]);
+    console.log(req.user);
+    return res.json({ "logIn": req.user });
+  },
 
-    const isLogIn = await bcrypt.compare(password, user.password);
-    return res.json({ "logIn": isLogIn });
+  logOut: (req, res) => {
+    req.logOut();
+    return res.json({ status: "log out successfully" });
   }
 }
 
