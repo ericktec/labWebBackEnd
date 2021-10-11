@@ -3,10 +3,10 @@ POST http://127.0.0.1:3000/auth/signup
 Content-Type: application/json
 
 {
-  "email": "test@gmail.com",
+  "email": "test4@gmail.com",
   "password": "erick123",
   "password2": "erick123",
-  "name": "Erick"
+  "name": "Frank"
 }
 
 ### Iniciar sesión
