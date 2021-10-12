@@ -54,7 +54,7 @@ CREATE TABLE player (
     last_name varchar(50) NULL,
     gender char(1) NULL,
     date_of_birth date NULL,
-    country_code char(3) NOT NULL,
+    country_code char(3),
     photo_url varchar(250) NULL,
     CONSTRAINT player_pk PRIMARY KEY (id)
 );

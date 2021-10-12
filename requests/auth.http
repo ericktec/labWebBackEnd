@@ -6,7 +6,8 @@ Content-Type: application/json
   "email": "test4@gmail.com",
   "password": "erick123",
   "password2": "erick123",
-  "name": "Frank"
+  "name": "Test",
+  "adminCode": "dk$se20RxJrS6*2lsk"
 }
 
 ### Iniciar sesión

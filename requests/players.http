@@ -1,0 +1,15 @@
+### Dar de alta jugador
+POST http://127.0.0.1:3000/players/newPlayer
+Content-Type: application/json
+
+{
+  "firstName": "Erick David", 
+  "lastName": "Mendoza Velasco", 
+  "gender": "M", 
+  "dateOfBirth": "1999-05-24", 
+  "photoUrl": "https://direct.rhapsody.com/imageserver/images/alb.360702313/600x600.jpg"
+}
+
+### Obtener a todos los jugadores
+GET http://127.0.0.1:3000/players/getPlayers
+Content-Type: application/json

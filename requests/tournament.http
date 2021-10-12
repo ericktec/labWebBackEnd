@@ -13,3 +13,9 @@ Content-Type: application/json
   "playingCategoryId": 1, 
   "tournamentPhoto": "https://i2.wp.com/matchtenis.com/wp-content/uploads/2019/04/Cesped-2.jpg?resize=660%2C330&ssl=1"
 }
+
+
+### Obtener todos los torneos
+GET http://127.0.0.1:3000/tournaments/allTournaments
+
+

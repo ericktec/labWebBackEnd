@@ -5,7 +5,14 @@ const pool = mysql.createPool(config.db);
 
 const controller = {
   getTournaments: async (req, res) => {
-    res.json({ "status": "success" });
+    const query = `SELECT tournament_playing_category.id as tournament_playing_category_id, tournament_name, location, start_date, end_date, number_of_rounds, tournament_photo, category_name, tournament_type, surface_type FROM 
+    tournament JOIN tournament_playing_category
+    ON tournament.id = tournament_playing_category.tournament_id
+    JOIN playing_category ON playing_category.id = tournament_playing_category.playing_category_id
+    JOIN tournament_type ON tournament.tournament_type_id = tournament_type.id
+    JOIN surface_type ON tournament.surface_type_id = surface_type.id;`
+    const rows = await db.query(query);
+    res.json({ "status": "success", tournaments: rows });
   },
   createTournament: async (req, res) => {
     const connection = await pool.getConnection();
