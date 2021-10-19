@@ -40,7 +40,7 @@ const controller = {
 
     } catch (error) {
       console.error(`Error occurred while creating tournament: ${error.message}`, error);
-      await connection.rollback;
+      await connection.rollback();
       console.info('Rollback successful');
       return res.json({ "status": "failed" });
     }
@@ -68,7 +68,7 @@ const controller = {
 
     } catch (error) {
       console.error(`Error occurred while creating tournament: ${error.message}`, error);
-      await connection.rollback;
+      await connection.rollback();
       console.info('Rollback successful');
       return res.json({ "status": "failed" });
     }
