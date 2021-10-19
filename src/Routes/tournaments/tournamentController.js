@@ -44,6 +44,35 @@ const controller = {
       console.info('Rollback successful');
       return res.json({ "status": "failed" });
     }
+  },
+  registerPlayer: async (req, res) => {
+    const { playerId, tournamentPlayingCategoryId, seed } = req.body;
+    const connection = await pool.getConnection();
+    await connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
+    console.log('Finished setting the isolation level to read committed');
+    await connection.beginTransaction();
+    try {
+
+      const RegistrationQuery = `INSERT INTO registration (registration_date) VALUES (?)`;
+      const [registrationRows] = await connection.execute(RegistrationQuery, [new Date()]);
+      console.log(registrationRows);
+      const registrationId = registrationRows.insertId
+      const registrationPlayerQuery = `INSERT INTO registration_player (registration_id, player_id) VALUES(?, ?)`;
+      const [registrationPlayer] = await connection.execute(registrationPlayerQuery, [registrationId, playerId]);
+      const playingInQuery = `INSERT INTO playing_in (registration_id, seed, tournament_playing_category_id) VALUES (?,?,?)`;
+      const [playingInRows] = await connection.execute(playingInQuery, [registrationId, seed, tournamentPlayingCategoryId]);
+      console.log("New registration with id", playingInRows.insertId);
+
+      await connection.commit();
+      res.json({ status: "successful", playerRegistrationId: playingInRows.insertId });
+
+    } catch (error) {
+      console.error(`Error occurred while creating tournament: ${error.message}`, error);
+      await connection.rollback;
+      console.info('Rollback successful');
+      return res.json({ "status": "failed" });
+    }
+
   }
 }
 

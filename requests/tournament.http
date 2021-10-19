@@ -18,4 +18,13 @@ Content-Type: application/json
 ### Obtener todos los torneos
 GET http://127.0.0.1:3000/tournaments/allTournaments
 
+### Registrar un nuevo jugador en el torneo
 
+POST http://127.0.0.1:3000/tournaments/registerPlayer
+Content-Type: application/json
+
+{
+  "playerId": 1, 
+  "tournamentPlayingCategoryId": 4, 
+  "seed": 2
+}
