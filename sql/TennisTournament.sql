@@ -1,6 +1,3 @@
--- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2021-10-07 20:03:56.407
-
 -- tables
 -- Table: Admins
 CREATE TABLE Admins (

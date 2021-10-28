@@ -6,6 +6,7 @@ const passport = require("passport");
 const initializePassport = require("./Config/passport-config")
 const cookieParser = require("cookie-parser");
 const session = require('express-session');
+const cors = require('cors');
 
 //Routes-----------------------------------------------
 const authentication = require("./Routes/auth/auth");
@@ -16,15 +17,20 @@ const players = require("./Routes/players/players");
 initializePassport(passport);
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
+  key: "userId",
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: {
+    expires: 60 * 60 * 72,
+  }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors({ credentials: true, origin: ['http://127.0.0.1:8080', 'http://localhost:8080'], }));
 
 app.use("/auth", authentication);
 app.use("/tournaments", tournaments)

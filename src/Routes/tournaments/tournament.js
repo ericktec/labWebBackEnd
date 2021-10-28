@@ -7,5 +7,6 @@ const controller = require("./tournamentController");
 router.get("/allTournaments", controller.getTournaments);
 router.post("/createTournament", checkAuthenticated, controller.createTournament);
 router.post("/registerPlayer", checkAuthenticated, controller.registerPlayer);
+router.get("/getPlayers/:tournamentCategoryId", controller.getPlayers);
 
 module.exports = router;

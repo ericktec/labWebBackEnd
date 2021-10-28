@@ -7,9 +7,6 @@ const controller = require("./authController");
 router.post("/signup", controller.signUp);
 router.post("/login", passport.authenticate("local"), controller.logIn);
 router.delete("/logout", controller.logOut);
-router.get("/test", (req, res) => {
-  console.log(req.user)
-  res.json({ user: req.user })
-});
+router.get("/checkLoggedIn", controller.checkLogIn);
 
 module.exports = router;

@@ -27,6 +27,7 @@ const controller = {
   },
 
   logIn: async (req, res) => {
+    console.log(req.cookie)
     console.log(req.user);
     return res.json({ "logIn": req.user });
   },
@@ -34,6 +35,13 @@ const controller = {
   logOut: (req, res) => {
     req.logOut();
     return res.json({ status: "log out successfully" });
+  },
+
+  checkLogIn: (req, res) => {
+    if (req.isAuthenticated()) {
+      return res.json({ status: "loggedIn", user: req.user });
+    }
+    return res.json({ status: "unauthorized" });
   }
 }
 

@@ -27,3 +27,7 @@ Content-Type: application/json
   "tournamentPlayingCategoryId": 5, 
   "seed": 4
 }
+
+### Obtener todos los jugadores de un torneo
+GET http://127.0.0.1:3000/tournaments/getPlayers/4
+
