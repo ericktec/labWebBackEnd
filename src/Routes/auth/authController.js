@@ -29,7 +29,7 @@ const controller = {
   logIn: async (req, res) => {
     console.log(req.cookie)
     console.log(req.user);
-    return res.json({ "logIn": req.user });
+    return res.json({ status: "authorized", "logIn": req.user });
   },
 
   logOut: (req, res) => {
