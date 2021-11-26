@@ -23,9 +23,9 @@ POST http://127.0.0.1:3000/tournaments/registerPlayer
 Content-Type: application/json
 
 {
-  "playerId": 1, 
-  "tournamentPlayingCategoryId": 5, 
-  "seed": 4
+  "playerId": 2, 
+  "tournamentPlayingCategoryId": 4, 
+  "seed": 7
 }
 
 ### Obtener todos los jugadores de un torneo

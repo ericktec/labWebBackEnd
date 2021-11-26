@@ -3,11 +3,11 @@ POST http://127.0.0.1:3000/players/newPlayer
 Content-Type: application/json
 
 {
-  "firstName": "Erick David", 
-  "lastName": "Mendoza Velasco", 
+  "firstName": "Fabian", 
+  "lastName": "Ramirez",  
   "gender": "M", 
-  "dateOfBirth": "1999-05-24", 
-  "photoUrl": "https://direct.rhapsody.com/imageserver/images/alb.360702313/600x600.jpg"
+  "dateOfBirth": "1999-10-04", 
+  "photoUrl": "https://media-exp1.licdn.com/dms/image/C4E03AQFWx6yMnFt3XQ/profile-displayphoto-shrink_800_800/0/1632948481148?e=1643241600&v=beta&t=bvcCMs5Fg9-EXQGLt7i0DaQzBgtSTn583GNjBnjElXc"
 }
 
 ### Obtener a todos los jugadores

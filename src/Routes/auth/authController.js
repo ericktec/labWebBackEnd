@@ -5,6 +5,8 @@ const saltRounds = 10;
 const controller = {
   signUp: async (req, res) => {
     const { email, name, password, password2, adminCode } = req.body;
+    console.log(adminCode)
+    console.log(process.env.ADMIN_SECRET)
     if (adminCode !== process.env.ADMIN_SECRET) {
       return res.json({ "status": "Unauthorized" });
     }
@@ -16,7 +18,7 @@ const controller = {
       const query = `INSERT INTO admins (email, name, password)
     VALUES (?,?,?)`;
       const rows = await db.query(query, [email, name, hash]);
-      return res.json(rows);
+      return res.json({ status: 'Account created' });
     } catch (error) {
       res.json({
         "status": "error",

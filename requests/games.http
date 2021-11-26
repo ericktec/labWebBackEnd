@@ -1,0 +1,14 @@
+### Registrar un nuevo juego
+POST http://127.0.0.1:3000/games/registerGame
+Content-Type: application/json
+
+{ 
+  "tournamentPlayingCategoryId": 4,
+  "firstRegistrationId": 11,
+  "secondRegistrationId": 12,
+  "round": 3,
+  "winnerRegistrationId": 11,
+  "numberOfSetsPlayed": 3,
+  "setsPlayer1": [6,4,7],
+  "setsPlayer2": [0,6,5]
+}

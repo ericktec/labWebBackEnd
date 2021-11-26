@@ -78,7 +78,7 @@ const controller = {
     const { tournamentCategoryId } = req.params;
     console.log(tournamentCategoryId)
     const query = `
-    SELECT player.first_name, player.last_name, player.photo_url, playing_in.seed, playing_in.tournament_playing_category_id
+    SELECT player.first_name, player.last_name, player.photo_url, playing_in.seed, playing_in.tournament_playing_category_id, playing_in.registration_id
     FROM playing_in
     JOIN registration
     ON playing_in.registration_id = registration.id

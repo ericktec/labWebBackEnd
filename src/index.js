@@ -12,6 +12,7 @@ const cors = require('cors');
 const authentication = require("./Routes/auth/auth");
 const tournaments = require("./Routes/tournaments/tournament");
 const players = require("./Routes/players/players");
+const games = require("./Routes/games/games");
 
 
 initializePassport(passport);
@@ -35,6 +36,7 @@ app.use(cors({ credentials: true, origin: ['http://127.0.0.1:8080', 'http://loca
 app.use("/auth", authentication);
 app.use("/tournaments", tournaments)
 app.use("/players", players);
+app.use("/games", games);
 
 app.listen(3000, function () {
   console.log("Server started on port 3000");
