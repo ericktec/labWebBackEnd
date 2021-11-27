@@ -6,11 +6,11 @@ Content-Type: application/json
   "tournamentPlayingCategoryId": 4,
   "firstRegistrationId": 11,
   "secondRegistrationId": 12,
-  "round": 3,
-  "winnerRegistrationId": 11,
+  "round": 2,
+  "winnerRegistrationId": 12,
   "numberOfSetsPlayed": 3,
-  "setsPlayer1": [6,4,7],
-  "setsPlayer2": [0,6,5]
+  "setsPlayer1": [5,4,0],
+  "setsPlayer2": [7,6,0]
 }
 
 ### Obtener detalles de un juego en base al torneo

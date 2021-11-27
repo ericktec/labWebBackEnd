@@ -13,27 +13,29 @@ const controller = {
     ON fixture.id = fixture_result.fixture_id
     WHERE fixture.tournament_playing_category_id = ?;`;
     const rows = await db.query(query, [tournamentCategoryId]);
-    if (rows.length === 0) return res.json({ status: 'error' });
-    const gamesDetails = rows[0];
-    const getSetScoresQuery = `
-    SELECT set_number, first_registration_games, second_registration_games 
-    FROM set_score
-    WHERE fixture_id = ?;`;
-    const setScores = await db.query(getSetScoresQuery, [gamesDetails.id]);
-    gamesDetails.sets = setScores;
-    const getPlayerName = `SELECT player.first_name, player.last_name, player.photo_url
-    FROM registration
-    JOIN registration_player
-    ON registration.id = registration_player.registration_id
-    JOIN player
-    ON registration_player.player_id = player.id
-    WHERE registration.id = ?;`;
-    const playerOneName = await db.query(getPlayerName, [gamesDetails.first_registration_id]);
-    const playerTwoName = await db.query(getPlayerName, [gamesDetails.second_registration_id]);
-    if (!playerOneName || !playerTwoName) return res.json({ status: 'error' });
-    gamesDetails.player_one_details = { ...playerOneName[0] };
-    gamesDetails.player_two_details = { ...playerTwoName[0] };
-    res.json({ status: "success", gamesDetails: gamesDetails });
+    if (rows.length === 0) return res.json({ status: 'error', message: "No games" });
+    for (let i = 0; i < rows.length; i++) {
+      const gamesDetails = rows[i];
+      const getSetScoresQuery = `
+      SELECT set_number, first_registration_games, second_registration_games 
+      FROM set_score
+      WHERE fixture_id = ?;`;
+      const setScores = await db.query(getSetScoresQuery, [gamesDetails.id]);
+      gamesDetails.sets = setScores;
+      const getPlayerName = `SELECT player.first_name, player.last_name, player.photo_url
+      FROM registration
+      JOIN registration_player
+      ON registration.id = registration_player.registration_id
+      JOIN player
+      ON registration_player.player_id = player.id
+      WHERE registration.id = ?;`;
+      const playerOneName = await db.query(getPlayerName, [gamesDetails.first_registration_id]);
+      const playerTwoName = await db.query(getPlayerName, [gamesDetails.second_registration_id]);
+      if (!playerOneName || !playerTwoName) return res.json({ status: 'error' });
+      gamesDetails.player_one_details = { ...playerOneName[0] };
+      gamesDetails.player_two_details = { ...playerTwoName[0] };
+    }
+    res.json({ status: "success", gamesDetails: rows });
   },
   registerGame: async (req, res) => {
     const { tournamentPlayingCategoryId,
