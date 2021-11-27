@@ -21,7 +21,19 @@ const controller = {
     WHERE fixture_id = ?;`;
     const setScores = await db.query(getSetScoresQuery, [gamesDetails.id]);
     gamesDetails.sets = setScores;
-    res.json({ status: "success", gameDetails: gamesDetails });
+    const getPlayerName = `SELECT player.first_name, player.last_name, player.photo_url
+    FROM registration
+    JOIN registration_player
+    ON registration.id = registration_player.registration_id
+    JOIN player
+    ON registration_player.player_id = player.id
+    WHERE registration.id = ?;`;
+    const playerOneName = await db.query(getPlayerName, [gamesDetails.first_registration_id]);
+    const playerTwoName = await db.query(getPlayerName, [gamesDetails.second_registration_id]);
+    if (!playerOneName || !playerTwoName) return res.json({ status: 'error' });
+    gamesDetails.player_one_details = { ...playerOneName[0] };
+    gamesDetails.player_two_details = { ...playerTwoName[0] };
+    res.json({ status: "success", gamesDetails: gamesDetails });
   },
   registerGame: async (req, res) => {
     const { tournamentPlayingCategoryId,

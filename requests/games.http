@@ -12,3 +12,7 @@ Content-Type: application/json
   "setsPlayer1": [6,4,7],
   "setsPlayer2": [0,6,5]
 }
+
+### Obtener detalles de un juego en base al torneo
+GET http://127.0.0.1:3000/games/getGames/4;
+
