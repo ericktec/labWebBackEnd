@@ -3,7 +3,7 @@ const router = express.Router();
 
 const controller = require("./gamesController");
 
-router.get("/test", controller.test);
+router.get("/getGames/:tournamentCategoryId", controller.getGamesByTournamentCategoryId);
 router.post("/registerGame", controller.registerGame);
 
 module.exports = router;

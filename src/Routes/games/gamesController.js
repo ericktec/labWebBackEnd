@@ -4,9 +4,24 @@ const config = require('../../Config/config');
 const pool = mysql.createPool(config.db);
 
 const controller = {
-  test: async (req, res) => {
-    const rows = await db.query("SELECT CURRENT_TIMESTAMP;");
-    const response = res.json(rows[0]);
+  getGamesByTournamentCategoryId: async (req, res) => {
+    console.log(req.params)
+    const { tournamentCategoryId } = req.params;
+    const query = `SELECT *
+    FROM fixture
+    JOIN fixture_result
+    ON fixture.id = fixture_result.fixture_id
+    WHERE fixture.tournament_playing_category_id = ?;`;
+    const rows = await db.query(query, [tournamentCategoryId]);
+    if (rows.length === 0) return res.json({ status: 'error' });
+    const gamesDetails = rows[0];
+    const getSetScoresQuery = `
+    SELECT set_number, first_registration_games, second_registration_games 
+    FROM set_score
+    WHERE fixture_id = ?;`;
+    const setScores = await db.query(getSetScoresQuery, [gamesDetails.id]);
+    gamesDetails.sets = setScores;
+    res.json({ status: "success", gameDetails: gamesDetails });
   },
   registerGame: async (req, res) => {
     const { tournamentPlayingCategoryId,
