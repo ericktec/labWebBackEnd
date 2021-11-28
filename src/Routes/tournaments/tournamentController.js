@@ -17,6 +17,7 @@ const controller = {
   createTournament: async (req, res) => {
     const connection = await pool.getConnection();
     const { tournamentName, location, startDate, endDate, numberOfRounds, tournamentTypeId, surfaceTypeId, playingCategoryId, tournamentPhoto } = req.body;
+    console.log(tournamentName)
     await connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
     console.log('Finished setting the isolation level to read committed');
     await connection.beginTransaction();
@@ -36,7 +37,7 @@ const controller = {
 
       console.log("Created new category for tournament " + tournamentId + " with new id " + tournamentCategoryRows.insertId);
       await connection.commit();
-      res.json({ status: "successful", tournamentCategoryId: tournamentCategoryRows.insertId });
+      res.json({ status: "success", tournamentCategoryId: tournamentCategoryRows.insertId });
 
     } catch (error) {
       console.error(`Error occurred while creating tournament: ${error.message}`, error);
@@ -64,7 +65,7 @@ const controller = {
       console.log("New registration with id", playingInRows.insertId);
 
       await connection.commit();
-      res.json({ status: "successful", playerRegistrationId: playingInRows.insertId });
+      res.json({ status: "success", playerRegistrationId: playingInRows.insertId });
 
     } catch (error) {
       console.error(`Error occurred while creating tournament: ${error.message}`, error);
@@ -76,7 +77,6 @@ const controller = {
   },
   getPlayers: async (req, res) => {
     const { tournamentCategoryId } = req.params;
-    console.log(tournamentCategoryId)
     const query = `
     SELECT player.first_name, player.last_name, player.photo_url, playing_in.seed, playing_in.tournament_playing_category_id, playing_in.registration_id
     FROM playing_in
@@ -88,9 +88,8 @@ const controller = {
     ON player.id = registration_player.player_id
     WHERE playing_in.tournament_playing_category_id = ?;`
     const rows = await db.query(query, [tournamentCategoryId]);
-    console.log(rows)
     return res.json({
-      status: "Success",
+      status: "success",
       players: rows
     });
   }

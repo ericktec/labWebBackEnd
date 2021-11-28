@@ -195,7 +195,8 @@ ALTER TABLE set_score ADD CONSTRAINT set_score_fixture FOREIGN KEY set_score_fix
 
 -- Reference: tour_playing_cat_playing_cat (table: tournament_playing_category)
 ALTER TABLE tournament_playing_category ADD CONSTRAINT tour_playing_cat_playing_cat FOREIGN KEY tour_playing_cat_playing_cat (playing_category_id)
-    REFERENCES playing_category (id);
+    REFERENCES playing_category (id)
+    ON DELETE CASCADE;
 
 -- Reference: tour_playing_cat_tour (table: tournament_playing_category)
 ALTER TABLE tournament_playing_category ADD CONSTRAINT tour_playing_cat_tour FOREIGN KEY tour_playing_cat_tour (tournament_id)

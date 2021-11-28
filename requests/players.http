@@ -13,3 +13,7 @@ Content-Type: application/json
 ### Obtener a todos los jugadores
 GET http://127.0.0.1:3000/players/getPlayers
 Content-Type: application/json
+
+
+### Obtener jugadores que no esten en dicho torneo
+GET http://127.0.0.1:3000/players/getPlayersNonSubscribed/4
