@@ -1,7 +1,6 @@
 const db = require("../../Services/db");
 const mysql = require('mysql2/promise');
 const config = require('../../Config/config');
-const pool = mysql.createPool(config.db);
 
 const controller = {
   getGamesByTournamentCategoryId: async (req, res) => {
@@ -49,7 +48,7 @@ const controller = {
       setsPlayer2
     } = req.body;
     console.log(req.body)
-    const connection = await pool.getConnection();
+    const connection = await db.pool.getConnection();
     await connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
     console.log('Finished setting the isolation level to read committed');
     await connection.beginTransaction();
@@ -65,10 +64,12 @@ const controller = {
       const insertFixtureResult = `INSERT INTO fixture_result (fixture_id, winner_registration_id, number_of_sets_played, is_opponent_retired) VALUES(?,?,?,?)`;
       await connection.execute(insertFixtureResult, [fixtureId, winnerRegistrationId, numberOfSetsPlayed, isOpponentRetired || null])
       await connection.commit();
+      await connection.release();
       return res.json({ status: 'success' });
     } catch (error) {
       console.error(`Error occurred while creating tournament: ${error.message}`, error);
       await connection.rollback();
+      await connection.release();
       console.info('Rollback successful');
       return res.json({ "status": "failed" });
     }

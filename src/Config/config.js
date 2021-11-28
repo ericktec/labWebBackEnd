@@ -7,8 +7,8 @@ const config = {
     password: env.DB_PASSWORD,
     database: env.DB_NAME,
     waitForConnections: true,
-    connectionLimit: env.DB_CONN_LIMIT || 2,
-    queueLimit: 0,
+    connectionLimit: env.DB_CONN_LIMIT || 100,
+    queueLimit: 10,
     debug: env.DB_DEBUG || false
   },
   listPerPage: env.LIST_PER_PAGE || 10,

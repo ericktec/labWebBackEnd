@@ -1,7 +1,6 @@
 const db = require("../../Services/db");
 const mysql = require('mysql2/promise');
 const config = require('../../Config/config');
-const pool = mysql.createPool(config.db);
 
 const controller = {
   getTournaments: async (req, res) => {
@@ -10,12 +9,13 @@ const controller = {
     ON tournament.id = tournament_playing_category.tournament_id
     JOIN playing_category ON playing_category.id = tournament_playing_category.playing_category_id
     JOIN tournament_type ON tournament.tournament_type_id = tournament_type.id
-    JOIN surface_type ON tournament.surface_type_id = surface_type.id;`
+    JOIN surface_type ON tournament.surface_type_id = surface_type.id
+    ORDER BY tournament_playing_category.id;`
     const rows = await db.query(query);
     res.json({ "status": "success", tournaments: rows });
   },
   createTournament: async (req, res) => {
-    const connection = await pool.getConnection();
+    const connection = await db.pool.getConnection();
     const { tournamentName, location, startDate, endDate, numberOfRounds, tournamentTypeId, surfaceTypeId, playingCategoryId, tournamentPhoto } = req.body;
     console.log(tournamentName)
     await connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
@@ -42,13 +42,15 @@ const controller = {
     } catch (error) {
       console.error(`Error occurred while creating tournament: ${error.message}`, error);
       await connection.rollback();
+      await connection.release();
       console.info('Rollback successful');
       return res.json({ "status": "failed" });
     }
   },
   registerPlayer: async (req, res) => {
+    console.log('Test');
     const { playerId, tournamentPlayingCategoryId, seed } = req.body;
-    const connection = await pool.getConnection();
+    const connection = await db.pool.getConnection();
     await connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
     console.log('Finished setting the isolation level to read committed');
     await connection.beginTransaction();
@@ -65,11 +67,13 @@ const controller = {
       console.log("New registration with id", playingInRows.insertId);
 
       await connection.commit();
+      await connection.release();
       res.json({ status: "success", playerRegistrationId: playingInRows.insertId });
 
     } catch (error) {
       console.error(`Error occurred while creating tournament: ${error.message}`, error);
       await connection.rollback();
+      await connection.release();
       console.info('Rollback successful');
       return res.json({ "status": "failed" });
     }
